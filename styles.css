@@ -388,22 +388,20 @@ body {
 }
 
 /* ===== Botón "+" para añadir tarea ===== */
-.boton-mas {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+.boton-anadir {
   border: none;
   background: var(--azul);
   color: white;
-  font-size: 1.3rem;
+  font-size: 0.82rem;
+  font-weight: 600;
   line-height: 1;
+  padding: 8px 14px;
+  border-radius: 980px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  white-space: nowrap;
 }
 
-.boton-mas:hover {
+.boton-anadir:hover {
   background: var(--azul-osc);
 }
 
@@ -700,7 +698,6 @@ body {
   max-width: 1000px;
   margin: 0 auto;
   padding: 14px 16px 0;
-  flex-wrap: wrap;
 }
 
 .vista-tab {
@@ -714,6 +711,17 @@ body {
   cursor: pointer;
   letter-spacing: -0.01em;
   transition: all 0.15s;
+  white-space: nowrap;
+}
+
+/* En móvil: las 3 pestañas en una sola fila, aunque se aprieten */
+@media (max-width: 760px) {
+  .vista-tab {
+    flex: 1;
+    padding: 9px 6px;
+    font-size: 0.8rem;
+    text-align: center;
+  }
 }
 
 .vista-tab-activa {

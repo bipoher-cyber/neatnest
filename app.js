@@ -316,7 +316,7 @@ function crearChipTarea(tarea) {
 // Abre la edición de una tarea reutilizando el formulario de añadir.
 function abrirEdicionTarea(tarea) {
   zonaFormulario.style.display = "block";
-  botonAnadir.textContent = "×";
+  botonAnadir.textContent = "✕ Cerrar";
 
   document.getElementById("nombre").value = tarea.nombre;
   document.getElementById("tiempo").value = tarea.tiempo;
@@ -352,7 +352,7 @@ function resetFormTarea() {
   const btnBorrar = document.getElementById("btn-borrar-tarea-edicion");
   if (btnBorrar) btnBorrar.style.display = "none";
   zonaFormulario.style.display = "none";
-  botonAnadir.textContent = "+";
+  botonAnadir.textContent = "+ Añadir";
   actualizarVisibilidadVeces();
 }
 
@@ -1214,7 +1214,7 @@ botonAnadir.addEventListener("click", () => {
   } else {
     resetFormTarea();
     zonaFormulario.style.display = "block";
-    botonAnadir.textContent = "×";
+    botonAnadir.textContent = "✕ Cerrar";
     document.getElementById("nombre").focus();
   }
 });
@@ -1548,7 +1548,7 @@ function abrirEdicionPlato(plato) {
   });
 
   panel.style.display = "block";
-  botonAnadir.textContent = "×";
+  document.getElementById("boton-anadir-plato").textContent = "✕ Cerrar";
 
   // Marcamos que estamos editando este plato.
   formPlato.dataset.editando = plato.id;
@@ -1581,7 +1581,7 @@ function resetFormPlato() {
   if (btnBorrar) btnBorrar.style.display = "none";
   const panel = document.getElementById("zona-form-plato");
   panel.style.display = "none";
-  document.getElementById("boton-anadir-plato").textContent = "+";
+  document.getElementById("boton-anadir-plato").textContent = "+ Añadir";
 }
 
 function borrarPlato(id) {
@@ -1906,7 +1906,7 @@ botonAnadirPlato.addEventListener("click", () => {
     // Abrir en modo "añadir" limpio.
     resetFormPlato();
     zonaFormPlato.style.display = "block";
-    botonAnadirPlato.textContent = "×";
+    botonAnadirPlato.textContent = "✕ Cerrar";
     document.getElementById("nombre-plato").focus();
   }
 });
