@@ -657,31 +657,33 @@ body {
   gap: 6px;
 }
 
-.boton-icono {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+.boton-compartir {
   border: 1px solid #e3e9e6;
   background: #f8faf9;
-  font-size: 1rem;
+  color: #1d1d1f;
+  font-size: 0.8rem;
+  font-weight: 600;
   line-height: 1;
+  padding: 8px 12px;
+  border-radius: 980px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  white-space: nowrap;
   transition: background 0.15s;
 }
 
-.boton-icono:hover {
+.boton-compartir:hover {
   background: #eef3f0;
 }
 
-.boton-wa svg {
-  display: block;
+/* Botón de WhatsApp en verde para que se reconozca */
+.boton-wa {
+  background: #25d366;
+  border-color: #25d366;
+  color: #ffffff;
 }
 
 .boton-wa:hover {
-  background: #e2f7ea;
+  background: #1db954;
 }
 
 .aviso-copiado {
@@ -846,10 +848,43 @@ body {
   hyphens: auto;
 }
 
-/* En móvil el calendario se desplaza en horizontal si no cabe */
+/* En móvil: apretamos el calendario para que los 5 días quepan
+   sin scroll horizontal. */
 @media (max-width: 760px) {
+  .tabla-menu {
+    overflow-x: hidden;
+  }
+
   .cal-tabla {
-    min-width: 520px;
+    border-spacing: 2px;
+  }
+
+  .cal-tabla th {
+    font-size: 0.55rem;
+    padding: 1px 2px;
+  }
+
+  .cal-fila td {
+    padding: 3px 3px;
+    border-radius: 6px;
+    height: auto;
+  }
+
+  .cal-etiqueta {
+    font-size: 0.5rem;
+    margin-bottom: 1px;
+  }
+
+  .cal-plato {
+    font-size: 0.58rem;
+    line-height: 1.15;
+  }
+
+  /* El puntito de color ocupa menos para no robar ancho */
+  .cal-plato .chip-punto {
+    width: 6px;
+    height: 6px;
+    margin-right: 2px;
   }
 }
 
