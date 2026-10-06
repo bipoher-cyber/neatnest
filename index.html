@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>neatnest - organiza tu hogar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="cabecera">
+    <div class="marca">
+      <!-- Logo: nido minimalista estilo Apple -->
+      <svg class="logo" width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="23" fill="#eaf3f9" stroke="#d5e6f1" stroke-width="1" />
+        <path d="M9 30c3-5 8-8 15-8s12 3 15 8" stroke="#4a90c2" stroke-width="2.4" stroke-linecap="round" />
+        <path d="M13 31c2.5-3.5 6.3-5.5 11-5.5S32.5 27.5 35 31" stroke="#4a90c2" stroke-width="2" stroke-linecap="round" opacity="0.55" />
+        <ellipse cx="24" cy="31" rx="4.2" ry="3.4" fill="#7b2a3b" />
+      </svg>
+      <div class="marca-texto">
+        <h1>neatnest</h1>
+        <p class="subtitulo">organiza tu hogar de forma sencilla</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Pestañas grandes de sección (siempre visibles) -->
+  <nav class="vista-tabs" aria-label="Secciones principales">
+    <button class="vista-tab vista-tab-activa" data-vista="plan">📅 Plan de hoy</button>
+    <button class="vista-tab" data-vista="tareas">🏠 Tareas del hogar</button>
+    <button class="vista-tab" data-vista="menus">🍽️ Menús</button>
+  </nav>
+
+  <!-- ================= VISTA: PLAN DE HOY ================= -->
+  <div id="vista-plan" class="vista vista-activa">
+
+  <main class="contenido-columnas una-columna">
+
+    <div class="columna col-activa">
+
+      <section class="tarjeta">
+        <div class="cabecera-tarjeta">
+          <h2>📅 Plan de hoy</h2>
+          <div class="acciones-compartir">
+            <button id="boton-copiar" class="boton-icono" title="Copiar lista">📋</button>
+            <button id="boton-whatsapp" class="boton-icono boton-wa" title="Enviar por WhatsApp" aria-label="Enviar por WhatsApp">
+              <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true">
+                <path fill="#25D366" d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.8.9 3.8 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3z"/>
+                <path fill="#fff" d="M22.9 19.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.6s-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.2 3.4 5.3 4.7 2 .8 2.7.9 3.7.8.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.6-.3z"/>
+              </svg>
+            </button>
+            <span id="aviso-copiado" class="aviso-copiado">¡Copiado!</span>
+          </div>
+        </div>
+
+        <!-- Horas disponibles de HOY (editable solo para hoy) -->
+        <div id="horas-hoy" class="horas-hoy"></div>
+
+        <!-- Menú de hoy y mañana (con checkboxes para encargar) -->
+        <div id="menu-hoy" class="menu-hoy"></div>
+
+        <p class="ayuda">
+          Estas son las tareas que tocarían hoy. Si no da tiempo a todo,
+          quita las que quieras: solo se saltan por hoy.
+        </p>
+        <ul id="lista-plan" class="lista-plan"></ul>
+        <p id="plan-vacio" class="aviso-vacio">No hay tareas para hoy.</p>
+      </section>
+
+      <section class="tarjeta tarjeta-resumen">
+        <h2>⏱️ ¿Cabe en el día?</h2>
+        <div id="resumen-plan" class="resumen"></div>
+      </section>
+
+      <!-- Backlog: pendientes no diarias que se quitaron -->
+      <section class="tarjeta">
+        <h2>📌 Pendientes (backlog)</h2>
+        <p class="ayuda">
+          Tareas que tocaban y quitaste. Márcalas como hechas, añádelas
+          a hoy o elimínalas.
+        </p>
+        <ul id="lista-backlog" class="lista-tareas"></ul>
+        <p id="backlog-vacio" class="aviso-vacio">No hay tareas pendientes. ¡Todo al día! 👏</p>
+      </section>
+
+    </div>
+
+  </main>
+
+  </div><!-- /vista-plan -->
+
+  <!-- ================= VISTA: TAREAS DEL HOGAR ================= -->
+  <div id="vista-tareas" class="vista">
+
+  <main class="contenido-columnas una-columna">
+
+    <!-- ===== Mis tareas ===== -->
+    <div class="columna col-activa" id="col-tareas">
+
+      <section class="tarjeta">
+        <div class="cabecera-tarjeta">
+          <h2>📋 Mis tareas</h2>
+          <button id="boton-anadir" class="boton-mas" title="Añadir una tarea">+</button>
+        </div>
+
+        <!-- Formulario de añadir (oculto hasta pulsar "+") -->
+        <div id="zona-formulario" class="zona-formulario" style="display:none;">
+          <form id="form-tarea" class="form-tarea">
+            <div class="campo">
+              <label for="nombre">Tarea</label>
+              <input type="text" id="nombre" placeholder="Ej: Limpiar los baños" required />
+            </div>
+
+            <div class="campo">
+              <label for="tiempo">Tiempo estimado (minutos)</label>
+              <input type="number" id="tiempo" min="1" step="1" placeholder="30" required />
+            </div>
+
+            <div class="campo">
+              <label for="recurrencia">Recurrencia</label>
+              <select id="recurrencia" required>
+                <option value="diario">Diaria</option>
+                <option value="semanalN">Varias veces por semana</option>
+                <option value="semanal">Semanal</option>
+                <option value="quincenal">Quincenal</option>
+                <option value="mensual">Mensual</option>
+              </select>
+            </div>
+
+            <div class="campo" id="campo-veces" style="display:none;">
+              <label for="veces">¿Cuántas veces por semana?</label>
+              <input type="number" id="veces" min="1" max="7" step="1" value="2" />
+            </div>
+
+            <button type="submit" class="boton-principal">Añadir tarea</button>
+          </form>
+        </div>
+
+        <!-- Buscador + filtro por recurrencia -->
+        <input type="text" id="buscar-tarea" class="buscador" placeholder="🔍 Buscar tarea..." />
+        <div id="filtros-rec" class="filtros-ing"></div>
+
+        <div id="lista-tareas" class="chips-platos"></div>
+        <p id="sin-tareas" class="aviso-vacio">Todavía no has añadido ninguna tarea.</p>
+
+        <div class="pie-tarjeta">
+          <button id="boton-restaurar" class="boton-secundario" title="Volver a cargar la lista sugerida">
+            ↺ Restaurar sugeridas
+          </button>
+        </div>
+      </section>
+
+      <!-- Horas disponibles -->
+      <section class="tarjeta">
+        <h2>⏰ Horas disponibles</h2>
+        <p class="ayuda">Horas que viene la empleada cada día entre semana. El fin de semana no cuenta.</p>
+        <table class="tabla-horas">
+          <thead>
+            <tr>
+              <th>Lun</th>
+              <th>Mar</th>
+              <th>Mié</th>
+              <th>Jue</th>
+              <th>Vie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="fila-horas"></tr>
+          </tbody>
+        </table>
+      </section>
+
+    </div>
+
+  </main>
+
+  </div><!-- /vista-tareas -->
+
+  <!-- ================= VISTA: MENÚS ================= -->
+  <div id="vista-menus" class="vista">
+
+  <!-- Pestañas internas de menús (solo móvil) -->
+  <nav class="tabs" aria-label="Secciones de menús">
+    <button class="tab-menu tab-menu-activa" data-tabmenu="platos">🥘 Mis platos</button>
+    <button class="tab-menu" data-tabmenu="menu">📆 Menú del mes</button>
+  </nav>
+
+  <main class="contenido-columnas">
+
+    <!-- ===== IZQUIERDA: Reglas + Mis platos ===== -->
+    <div class="columna colmenu-activa" id="col-platos">
+
+      <section class="tarjeta">
+        <div class="cabecera-tarjeta">
+          <h2>🥘 Mis platos</h2>
+          <button id="boton-anadir-plato" class="boton-mas" title="Añadir un plato">+</button>
+        </div>
+
+        <!-- Formulario de añadir plato (oculto hasta pulsar "+") -->
+        <div id="zona-form-plato" class="zona-formulario" style="display:none;">
+          <form id="form-plato" class="form-tarea">
+            <div class="campo">
+              <label for="nombre-plato">Plato</label>
+              <input type="text" id="nombre-plato" placeholder="Ej: Lentejas" required />
+            </div>
+
+            <div class="campo">
+              <label>Categorías (puede ser varias)</label>
+              <div class="checks-categoria">
+                <label><input type="checkbox" value="primero" /> Primero</label>
+                <label><input type="checkbox" value="segundo" /> Segundo</label>
+                <label><input type="checkbox" value="unico" /> Plato único</label>
+                <label><input type="checkbox" value="cena" /> Cena</label>
+              </div>
+            </div>
+
+            <div class="campo">
+              <label for="ing-plato">Ingrediente principal</label>
+              <select id="ing-plato" required>
+                <option value="carne">🥩 Carne</option>
+                <option value="pescado">🐟 Pescado</option>
+                <option value="huevo">🥚 Huevo</option>
+                <option value="legumbre">🫘 Legumbre</option>
+                <option value="verdura" selected>🥬 Verdura</option>
+                <option value="pastaarroz">🍝 Pasta/Arroz</option>
+              </select>
+            </div>
+
+            <button type="submit" class="boton-principal">Añadir plato</button>
+          </form>
+        </div>
+
+        <!-- Buscador + filtro por ingrediente -->
+        <input type="text" id="buscar-plato" class="buscador" placeholder="🔍 Buscar plato..." />
+        <div id="filtros-ing" class="filtros-ing"></div>
+
+        <div id="lista-platos" class="chips-platos"></div>
+        <p id="sin-platos" class="aviso-vacio">Todavía no has añadido ningún plato.</p>
+
+        <div class="pie-tarjeta">
+          <button id="boton-restaurar-platos" class="boton-secundario" title="Volver a cargar los platos sugeridos">
+            ↺ Restaurar sugeridos
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ===== DERECHA: Menú del mes ===== -->
+    <div class="columna" id="col-menu">
+
+      <section class="tarjeta">
+        <div class="cabecera-tarjeta">
+          <h2>📆 Menú del mes</h2>
+          <button id="boton-generar-menu" class="boton-secundario" title="Volver a cargar tu menú base de 4 semanas">
+            ↺ Restaurar menú base
+          </button>
+        </div>
+        <p class="ayuda">
+          Tu menú base de 4 semanas. Haz clic en una casilla para cambiar
+          cualquier comida o cena.
+        </p>
+        <div id="tabla-menu" class="tabla-menu"></div>
+        <p id="menu-vacio" class="aviso-vacio">
+          Añade platos y pulsa “Regenerar” para crear tu menú.
+        </p>
+      </section>
+
+    </div>
+
+  </main>
+
+  </div><!-- /vista-menus -->
+
+  <script src="app.js"></script>
+</body>
+</html>
